@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jqRedin</title>
+<meta charset="UTF-8">
+<script src="jquery-1.11.1.js"></script>
+<script src="jquery-1.11.0-ui.js"></script>
+<script src="jqRedin.js"></script>
+<script src="jquery.copycss.js"></script>
+<link rel="stylesheet" href="jqRedin.css" />
+<link rel="stylesheet" href="jquery-1.11.0-ui.css" />
+<style>
+label {
+  display: block;
+}
+</style>
+</head>
+
+<body>
+Select:
+<label><input type="radio" value="Option 3" name="group" id="opt3" /> Option 0</label>
+<label><input type="radio" value="Option 2" name="group" id="opt2" /> Option 1</label>
+<label style="display:inline-block;"><input type="radio" value="Option 1" name="group" id="optOther" /> Other:&nbsp;</label><input id="input_opt" type="text" disabled />
+<hr/>
+<input id="input_free" type="text" disabled />
+
+<script>
+var $radios = $( 'input[type="radio"]' ),
+	$inputOption = $( '#input_opt' );
+
+function enableInputOption() {
+	$inputOption
+		.off( 'focus mousedown', enableInputOption )
+		.removeAttr( 'disabled' );
+
+	setTimeout( function() {
+		$( '#optOther' )
+			.click();
+		$inputOption
+			.focus()
+			.select();
+	}, 5 );
+}
+
+function disableInputOption() {
+	$inputOption
+		.attr( 'disabled', 'disabled' )
+		.responsiveInput()
+		.on( 'focus mousedown', enableInputOption );
+}
+
+$radios.change( function() {
+	if ( $radios.filter( '#optOther:checked' ).length ) {
+		enableInputOption();
+	} else {
+		disableInputOption();
+	}
+} );
+disableInputOption();
+</script>
+
+
+<script>
+var $input = $( '#input_free' );
+
+function enable() {
+	$input
+		.off( 'focus mousedown', enable )
+		.removeAttr( 'disabled' );
+
+	setTimeout( function() {
+		$input
+			.focus()
+			.select()
+			.on( 'focusout', disable );
+	}, 5 );
+}
+
+function disable() {
+	$input
+		.off( 'focusout', disable )
+		.attr( 'disabled', 'disabled' )
+		.responsiveInput()
+		.on( 'focus mousedown', enable );
+}
+
+disable();
+</script>
+</body>
+</html>
