@@ -7,10 +7,21 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <script src="libs/jquery-1.11.1.js"></script>
+    <script src="libs/jquery-1.11.0-ui.js"></script>
+    <script src="jqRedin.js"></script>
+    <script src="libs/jquery.copycss.js"></script>
+    <link rel="stylesheet" href="jqRedin.css" />
+    <link rel="stylesheet" href="libs/jquery-1.11.0-ui.css" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>jqRedin by Rillke</title>
+    <style>
+    label {
+      display: block;
+    }
+    </style>
   </head>
 
   <body>
@@ -32,11 +43,23 @@
 
         <section id="main_content">
           <h1>
-<a name="jqredin" class="anchor" href="#jqredin"><span class="octicon octicon-link"></span></a>jqRedin</h1>
+          <a name="jqredin" class="anchor" href="#jqredin"><span class="octicon octicon-link"></span></a>jqRedin</h1>
 
-<p>Responsive disabled input: Allows interaction with disabled inputs.</p>
+          <p>Responsive disabled input: Allows interaction with disabled inputs.</p>
 
-<p>jqRedin is a jQuery plugIn.</p>
+          <p>jqRedin is a jQuery plugIn.</p>
+        </section>
+        
+        <section>
+          Input is enabled when clicked or option is selected:
+          <label><input type="radio" value="Option 3" name="group" id="opt3" /> Option 0</label>
+          <label><input type="radio" value="Option 2" name="group" id="opt2" /> Option 1</label>
+          <label style="display:inline-block;"><input type="radio" value="Option 1" name="group" id="optOther" /> Other:&nbsp;</label><input id="input_opt" type="text" disabled />
+          <hr/>
+        </section>
+        <section>
+          Input is enabled as long as it has focus:
+          <input id="input_free" type="text" disabled />
         </section>
 
         <footer>
@@ -47,5 +70,68 @@
         
       </div>
     </div>
+
+    <script>
+    var $radios = $( 'input[type="radio"]' ),
+      $inputOption = $( '#input_opt' );
+
+    function enableInputOption() {
+      $inputOption
+        .off( 'focus mousedown', enableInputOption )
+        .removeAttr( 'disabled' );
+
+      setTimeout( function() {
+        $( '#optOther' )
+          .click();
+        $inputOption
+          .focus()
+          .select();
+      }, 5 );
+    }
+
+    function disableInputOption() {
+      $inputOption
+        .attr( 'disabled', 'disabled' )
+        .responsiveInput()
+        .on( 'focus mousedown', enableInputOption );
+    }
+
+    $radios.change( function() {
+      if ( $radios.filter( '#optOther:checked' ).length ) {
+        enableInputOption();
+      } else {
+        disableInputOption();
+      }
+    } );
+    disableInputOption();
+    </script>
+
+
+    <script>
+    var $input = $( '#input_free' );
+
+    function enable() {
+      $input
+        .off( 'focus mousedown', enable )
+        .removeAttr( 'disabled' );
+
+      setTimeout( function() {
+        $input
+          .focus()
+          .select()
+          .on( 'focusout', disable );
+      }, 5 );
+    }
+
+    function disable() {
+      $input
+        .off( 'focusout', disable )
+        .attr( 'disabled', 'disabled' )
+        .responsiveInput()
+        .on( 'focus mousedown', enable );
+    }
+
+    disable();
+    </script>
   </body>
 </html>

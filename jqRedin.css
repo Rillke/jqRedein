@@ -1,0 +1,44 @@
+/*!
+ *  jQuery Redin PlugIn
+ *  Responsive disabled input: Allows interaction with disabled inputs.
+ *  @author Rillke, 2014
+ */
+
+.jqredin-container {
+  position: relative;
+  display: inline-block;
+}
+
+.jqredin-input, .jqredin-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+input.jqredin-input {
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  transform: none !important;
+}
+
+input.jqredin-overlay {
+  right: 0;
+  bottom: 0;
+  background: none;
+  z-index: 1 !important;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  /* IE 5-7 */
+  filter: alpha(opacity=0);
+  /* Netscape */
+  -moz-opacity: 0;
+  /* Safari 1.x */
+  -khtml-opacity: 0;
+  /* Good browsers */
+  opacity: 0;
+}
