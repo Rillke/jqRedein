@@ -46,7 +46,7 @@
 				.addClass( 'jqredin-overlay' )
 				.removeAttr( 'disabled' ),
 				positionProps = [ 'height', 'width', 'z-index', 'top', 'left', 'right', 'bottom', 'transform', 'transform-origin' ],
-				events = 'click dblclick focusout hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup mousewheel keydown keypress keyup input';
+				events = 'click dblclick focusout hover mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup mousewheel keydown keypress keyup input dragenter';
 
 			if ( !$el.attr( 'disabled' ) ) {
 				return;

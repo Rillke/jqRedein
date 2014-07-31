@@ -32,7 +32,7 @@ var $radios = $( 'input[type="radio"]' ),
 
 function enableInputOption() {
 	$inputOption
-		.off( 'focus mousedown', enableInputOption )
+		.off( 'focus mousedown dragenter', enableInputOption )
 		.removeAttr( 'disabled' );
 
 	setTimeout( function() {
@@ -48,7 +48,7 @@ function disableInputOption() {
 	$inputOption
 		.attr( 'disabled', 'disabled' )
 		.responsiveInput()
-		.on( 'focus mousedown', enableInputOption );
+		.on( 'focus mousedown dragenter', enableInputOption );
 }
 
 $radios.change( function() {
@@ -67,7 +67,7 @@ var $input = $( '#input_free' );
 
 function enable() {
 	$input
-		.off( 'focus mousedown', enable )
+		.off( 'focus mousedown dragenter', enable )
 		.removeAttr( 'disabled' );
 
 	setTimeout( function() {
@@ -83,7 +83,7 @@ function disable() {
 		.off( 'focusout', disable )
 		.attr( 'disabled', 'disabled' )
 		.responsiveInput()
-		.on( 'focus mousedown', enable );
+		.on( 'focus mousedown dragenter', enable );
 }
 
 disable();
